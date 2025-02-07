@@ -24,8 +24,8 @@ async function check_website(url){
 
         //checking allowed methods
         const optionsresp = await axios.options(url,{timeout: 5000});
-        const allowheader = optionsresp.headers['allow'];
-        if (allowheader){
+        const allowheader = optionsresp.headers['allow']; //if you have read the read me you could remove the allow flag to check 
+        if (allowheader){                                // that it realy works ,it is just that some websites dont allow methods 
             console.log('allowed http methods are :'+ allowheader);
         }else{
             console.warn('allowed http methods not found');//permision error?
@@ -50,10 +50,7 @@ async function check_website(url){
          rl.question('Enter the website url: ', (url) => {
           check_website(url);
           rl.close();
-         });// for me it doesnt work the inputs doesnt show up in the console
-         // i think its a probleme in the environment 
-        // i will try to run it in windows tomorrow
-
+         });//now it does work perfectly in this last commit read the read me if you dont understand
 
 
     
