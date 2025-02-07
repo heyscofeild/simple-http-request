@@ -50,7 +50,9 @@ async function check_website(url){
          rl.question('Enter the website url: ', (url) => {
           check_website(url);
           rl.close();
-         });
+         });// for me it doesnt work the inputs doesnt show up in the console
+         // i think its a probleme in the environment 
+        // i will try to run it in windows tomorrow
 
 
 
