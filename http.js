@@ -1,4 +1,5 @@
 const axios = require('axios');
+const readline = require('readline');
 
 
 async function check_website(url){
@@ -27,18 +28,30 @@ async function check_website(url){
         if (allowheader){
             console.log('allowed http methods are :'+ allowheader);
         }else{
-            console.warn('allowed http methods not found');//permission error?
+            console.warn('allowed http methods not found');//permision error?
         }
-
+    }
         catch (error) {
-            console.error("Error: Unable to reach server :"+ error.message);
+            if(error.code === 'ECONNABORTED'){  //ECONNABORTED is triggered when the 5 sec timeout is reached
+                console.error("Error: request timeout");
+            }else if (error.code === 'ENOTFOUND'|| error.code==='ECONNREFUSED'){ // these are for connecion adn code errors
+                console.error("Error: Unable to reach server :"+ error.message);
+            }else{
+                console.error("Error: "+ error.message);
+            }
         }
-
-
-
-
-
     }
 
+       //prompt the user to input the url and call the function
+       const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+       });
+         rl.question('Enter the website url: ', (url) => {
+          check_website(url);
+          rl.close();
+         });
 
-}
+
+
+    
